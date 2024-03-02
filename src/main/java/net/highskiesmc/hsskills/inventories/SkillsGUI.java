@@ -2,6 +2,8 @@ package net.highskiesmc.hsskills.inventories;
 
 import net.highskiesmc.hscore.inventory.GUI;
 import net.highskiesmc.hscore.utils.TextUtils;
+import net.highskiesmc.hsskills.HSSkills;
+import net.highskiesmc.hsskills.api.HSSkillsApi;
 import net.highskiesmc.hsskills.api.Skills.Skill;
 import net.highskiesmc.hsskills.api.Skills.SkillType;
 import org.bukkit.Bukkit;
@@ -10,22 +12,21 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class SkillsGUI implements GUI {
     private final Player player;
+    private final HSSkillsApi api;
 
     public SkillsGUI(@NonNull Player player) {
         this.player = player;
+        this.api = HSSkills.getApi();
     }
 
     @Override
     public void onInventoryClick(InventoryClickEvent inventoryClickEvent) {
-
+        // TODO: Handle upgrading skills here
     }
 
     @Override
@@ -43,7 +44,7 @@ public class SkillsGUI implements GUI {
         int i = 2;
 
         for (SkillType skillType : SkillType.values()) {
-            inventory.setItem(i, skillType.getDisplayItem(3));
+            inventory.setItem(i, skillType.getDisplayItem(api.getSkillLevel(player, skillType)));
             i += 2;
         }
     }

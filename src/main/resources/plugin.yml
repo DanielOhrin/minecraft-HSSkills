@@ -7,3 +7,4 @@ description: Player (Rank) Skills for High Skies
 commands:
   skills:
     description: "Opens the menu for player skills"
+  getskilltoken:
