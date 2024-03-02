@@ -5,6 +5,8 @@ import net.highskiesmc.hscore.exceptions.Exception;
 import net.highskiesmc.hscore.highskies.HSPlugin;
 import net.highskiesmc.hsskills.api.HSSkillsApi;
 import net.highskiesmc.hsskills.commands.SkillsCommand;
+import net.highskiesmc.hsskills.events.handlers.PlayerJoinLeaveHandlers;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.sql.SQLException;
@@ -17,17 +19,23 @@ public final class HSSkills extends HSPlugin {
         config.reload();
 
         try {
-            api = new HSSkillsApi(this, config.get("my-sql", ConfigurationSection.class));
+            api = new HSSkillsApi(this, config.get("my-sql", ConfigurationSection.class, null));
         } catch (SQLException ex) {
             Exception.useStackTrace(getLogger()::severe, ex);
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
         }
 
         getCommand("skills").setExecutor(new SkillsCommand(this));
+
+        register(new PlayerJoinLeaveHandlers(this));
     }
 
     @Override
     public void disable() {
-
+        if (api != null) {
+            api.dispose();
+        }
     }
 
     @Override
