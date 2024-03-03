@@ -8,9 +8,11 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class HSSkillsApi {
     public final NamespacedKey SKILL_TOKEN_KEY;
@@ -77,6 +79,14 @@ public class HSSkillsApi {
     }
 
     /**
+     * @param player Player
+     * @return Current Unspent tokens the player has
+     */
+    public int getTokens(@NonNull Player player) {
+        return getPlayerSkills(player).getTokens();
+    }
+
+    /**
      * Gives the player physical token(s)
      *
      * @param player Player
@@ -93,7 +103,7 @@ public class HSSkillsApi {
      * @param playerUuid UUID of player claiming the token
      * @return Whether the token was given or not
      */
-    public boolean claimSkillToken(@NonNull UUID playerUuid) {
+    private boolean claimSkillToken(@NonNull UUID playerUuid) {
         //TODO: Add checking to see if their tokens surpass the maximum allowed FOR THEIR RANK
 
         // This will give them a virtual token
@@ -107,15 +117,57 @@ public class HSSkillsApi {
     }
 
     public boolean claimSkillToken(@NonNull Player player) {
+        Rank rank = getRank(player);
+
+        if (rank == null) {
+            return false;
+        }
+
+        int maxTokens = (rank.ordinal() + 1) * SkillType.values().length;
+        PlayerSkills skills = getPlayerSkills(player);
+        int tokens = skills.getTokens() + skills.getSkills().size();
+
+        if (tokens >= maxTokens) {
+            return false;
+        }
+
         return claimSkillToken(player.getUniqueId());
     }
 
-    public void upgradeSkill(@NonNull Player player, @NonNull SkillType skillType) {
+    private PlayerSkills getPlayerSkills(@NonNull Player player) {
+        return cache.getCache().get(player.getUniqueId());
+    }
+
+    public boolean upgradeSkill(@NonNull UUID playerUuid, @NonNull SkillType skillType) {
         // TODO: Check their rank, they should only be able to claim up to the skill-level of their rank.
 
+        return true;
+    }
+
+    public boolean upgradeSkill(@NonNull Player player, @NonNull SkillType skillType) {
+        if (false) {
+            return false;
+        }
+
+        return upgradeSkill(player.getUniqueId(), skillType);
     }
 
     public int getSkillLevel(@NonNull Player player, @NonNull SkillType skillType) {
         return cache.getCache().get(player.getUniqueId()).getSkills().stream().filter(x -> x.getType() == skillType).toList().size();
+    }
+
+    /**
+     * @param player Player's rank to observe
+     * @return Highest Rank of the player, or null if they have none
+     */
+    @Nullable
+    public Rank getRank(@NonNull Player player) {
+        for (Rank rank : Arrays.stream(Rank.values()).sorted(Comparator.reverseOrder()).toList()) {
+            if (player.hasPermission(rank.getPermission())) {
+                return rank;
+            }
+        }
+
+        return null;
     }
 }

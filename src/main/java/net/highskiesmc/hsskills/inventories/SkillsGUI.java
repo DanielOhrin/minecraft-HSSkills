@@ -14,7 +14,6 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-
 public class SkillsGUI implements GUI {
     private final Player player;
     private final HSSkillsApi api;
@@ -43,6 +42,7 @@ public class SkillsGUI implements GUI {
     public void addContent(Inventory inventory) {
         int i = 2;
 
+        // TODO: Show tokens in gui title (1)
         for (SkillType skillType : SkillType.values()) {
             inventory.setItem(i, skillType.getDisplayItem(api.getSkillLevel(player, skillType)));
             i += 2;
@@ -52,8 +52,9 @@ public class SkillsGUI implements GUI {
     @Override
     @NonNull
     public Inventory getInventory() {
-        Inventory inv = Bukkit.createInventory(this, 9, TextUtils.translateColor("&6&lPlayer Skills"));
-
+        Inventory inv = Bukkit.createInventory(this, 9,
+                TextUtils.translateColor("&6&lPlayer Skills (" + api.getTokens(player) + ")"));
+        // TODO: Open new GUI when successfully spending a token
         addContent(inv);
 
         return inv;

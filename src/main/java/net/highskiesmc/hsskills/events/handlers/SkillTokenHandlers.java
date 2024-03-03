@@ -4,6 +4,7 @@ import net.highskiesmc.hscore.highskies.HSListener;
 import net.highskiesmc.hscore.highskies.HSPlugin;
 import net.highskiesmc.hsskills.api.HSSkillsApi;
 import net.highskiesmc.hsskills.api.SkillToken;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -42,6 +43,8 @@ public class SkillTokenHandlers extends HSListener {
                 item.setAmount(amount - 1);
             }
             // TODO: Player feedback
+        } else {
+            e.getPlayer().sendMessage(ChatColor.RED + "You cannot claim more of these!");
         }
 
     }
