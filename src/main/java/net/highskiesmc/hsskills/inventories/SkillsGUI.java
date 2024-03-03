@@ -4,6 +4,7 @@ import net.highskiesmc.hscore.inventory.GUI;
 import net.highskiesmc.hscore.utils.TextUtils;
 import net.highskiesmc.hsskills.HSSkills;
 import net.highskiesmc.hsskills.api.HSSkillsApi;
+import net.highskiesmc.hsskills.api.Rank;
 import net.highskiesmc.hsskills.api.Skills.Skill;
 import net.highskiesmc.hsskills.api.Skills.SkillType;
 import org.bukkit.Bukkit;
@@ -17,15 +18,43 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public class SkillsGUI implements GUI {
     private final Player player;
     private final HSSkillsApi api;
+    private final int tokens;
 
     public SkillsGUI(@NonNull Player player) {
         this.player = player;
         this.api = HSSkills.getApi();
+        this.tokens = api.getTokens(player);
     }
 
     @Override
     public void onInventoryClick(InventoryClickEvent inventoryClickEvent) {
-        // TODO: Handle upgrading skills here
+        if (tokens <= 0) {
+            return;
+        }
+
+        switch (inventoryClickEvent.getRawSlot()) {
+            case 2:
+                if (api.upgradeSkill(player, SkillType.ISLAND)) {
+                    player.closeInventory();
+                    player.openInventory(new SkillsGUI(player).getInventory());
+                }
+                break;
+            case 4:
+                if (api.upgradeSkill(player, SkillType.PVE)) {
+                    player.closeInventory();
+                    player.openInventory(new SkillsGUI(player).getInventory());
+                }
+                break;
+            case 6:
+                if (api.upgradeSkill(player, SkillType.PVP)) {
+                    player.closeInventory();
+                    player.openInventory(new SkillsGUI(player).getInventory());
+                }
+                break;
+            default:
+                break;
+        }
+
     }
 
     @Override
@@ -53,10 +82,10 @@ public class SkillsGUI implements GUI {
     @NonNull
     public Inventory getInventory() {
         Inventory inv = Bukkit.createInventory(this, 9,
-                TextUtils.translateColor("&6&lPlayer Skills (" + api.getTokens(player) + ")"));
+                TextUtils.translateColor("&6&lPlayer Skills (" + tokens + ")"));
         // TODO: Open new GUI when successfully spending a token
         addContent(inv);
-
+        
         return inv;
     }
 }

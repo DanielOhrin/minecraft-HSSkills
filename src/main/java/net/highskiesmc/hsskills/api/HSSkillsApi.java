@@ -2,6 +2,7 @@ package net.highskiesmc.hsskills.api;
 
 import net.highskiesmc.hscore.utils.PlayerUtils;
 import net.highskiesmc.hsskills.HSSkills;
+import net.highskiesmc.hsskills.api.Skills.Skill;
 import net.highskiesmc.hsskills.api.Skills.SkillType;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -104,8 +105,6 @@ public class HSSkillsApi {
      * @return Whether the token was given or not
      */
     private boolean claimSkillToken(@NonNull UUID playerUuid) {
-        //TODO: Add checking to see if their tokens surpass the maximum allowed FOR THEIR RANK
-
         // This will give them a virtual token
         PlayerSkills skills = cache.getCache().get(playerUuid);
 
@@ -135,17 +134,47 @@ public class HSSkillsApi {
     }
 
     private PlayerSkills getPlayerSkills(@NonNull Player player) {
-        return cache.getCache().get(player.getUniqueId());
+        return getPlayerSkills(player.getUniqueId());
     }
 
-    public boolean upgradeSkill(@NonNull UUID playerUuid, @NonNull SkillType skillType) {
-        // TODO: Check their rank, they should only be able to claim up to the skill-level of their rank.
+    private PlayerSkills getPlayerSkills(@NonNull UUID playerUuid) {
+        return cache.getCache().get(playerUuid);
+    }
 
+    private boolean upgradeSkill(@NonNull UUID playerUuid, @NonNull SkillType skillType) {
+        PlayerSkills skills = getPlayerSkills(playerUuid);
+
+        skills.setTokens(skills.getTokens() - 1);
+        skills.addSkill(Skill.getSkills(skillType).get(skills.getSkills().stream().filter(x -> x.getType() == skillType).toList().size()));
+
+        cache.put(playerUuid, skills, true);
         return true;
     }
 
+    /**
+     * @param player    Player to upgrade skill for
+     * @param skillType Skill-type to upgrade
+     * @return Whether it can be upgraded
+     */
+    public boolean canUpgradeSkill(@NonNull Player player, @NonNull SkillType skillType) {
+        Rank rank = getRank(player);
+
+        if (rank == null || getTokens(player) < 1) {
+            return false;
+        }
+
+        int skillTypeLevel = getSkillLevel(player, skillType);
+
+        return skillTypeLevel < (rank.ordinal() + 1);
+    }
+
+    /**
+     * @param player    Player to upgrade skill for
+     * @param skillType Skill-type to upgrade
+     * @return Whether it was upgraded
+     */
     public boolean upgradeSkill(@NonNull Player player, @NonNull SkillType skillType) {
-        if (false) {
+        if (!canUpgradeSkill(player, skillType)) {
             return false;
         }
 
