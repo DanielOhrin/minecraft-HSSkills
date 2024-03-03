@@ -30,7 +30,7 @@ public enum Skill {
     ADVENTURE_LEAVE_TIMER_DECREASE(SkillType.PVE, 50, (Skill skill) -> "-" + skill.amount + "% /adventure leave timer"),
     INSTANT_HEALTH_INCREASE(SkillType.PVE, 25, (Skill skill) -> "Instant Potions heal " + skill.amount + "% more"),
     // Percent Chance to get Mob Loot
-    ADVENTURE_MOB_LOOT(SkillType.PVE, 1, "Adventure Mob Loot");
+    ADVENTURE_MOB_LOOT(SkillType.PVE, 5, "Adventure Mob Loot");
 
     //</editor-fold>
 

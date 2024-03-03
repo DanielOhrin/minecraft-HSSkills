@@ -80,6 +80,16 @@ public class HSSkillsApi {
     }
 
     /**
+     *
+     * @param player Player
+     * @param skill Skill to check for
+     * @return Whether the player has unlocked that skill
+     */
+    public boolean hasSkill(@NonNull Player player, @NonNull Skill skill) {
+        return getPlayerSkills(player).getSkills().contains(skill);
+    }
+
+    /**
      * @param player Player
      * @return Current Unspent tokens the player has
      */

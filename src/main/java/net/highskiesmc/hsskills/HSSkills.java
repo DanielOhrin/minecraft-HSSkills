@@ -1,11 +1,13 @@
 package net.highskiesmc.hsskills;
 
+import dev.rosewood.rosestacker.api.RoseStackerAPI;
 import net.highskiesmc.hscore.configuration.sources.FileConfigSource;
 import net.highskiesmc.hscore.exceptions.Exception;
 import net.highskiesmc.hscore.highskies.HSPlugin;
 import net.highskiesmc.hsskills.api.HSSkillsApi;
 import net.highskiesmc.hsskills.commands.SkillsCommand;
 import net.highskiesmc.hsskills.commands.TempCommand;
+import net.highskiesmc.hsskills.events.handlers.IslandSkillHandlers;
 import net.highskiesmc.hsskills.events.handlers.PlayerJoinLeaveHandlers;
 import net.highskiesmc.hsskills.events.handlers.SkillTokenHandlers;
 import org.bukkit.Bukkit;
@@ -16,8 +18,12 @@ import java.sql.SQLException;
 
 public final class HSSkills extends HSPlugin {
     private static HSSkillsApi api;
+    private static RoseStackerAPI rsAPI = null;
+
     @Override
     public void enable() {
+        rsAPI = RoseStackerAPI.getInstance();
+
         config.addSource(new FileConfigSource("config.yml", this));
         config.reload();
 
@@ -34,6 +40,7 @@ public final class HSSkills extends HSPlugin {
 
         register(new PlayerJoinLeaveHandlers(this));
         register(new SkillTokenHandlers(this, api));
+        register(new IslandSkillHandlers(this, api, rsAPI));
     }
 
     @Override
@@ -55,5 +62,9 @@ public final class HSSkills extends HSPlugin {
 
     public static HSSkillsApi getApi() {
         return api;
+    }
+
+    public static RoseStackerAPI getRsAPI() {
+        return rsAPI;
     }
 }
