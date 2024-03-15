@@ -30,13 +30,10 @@ public class PvPSkillHandlers extends HSListener {
         super(main);
         this.api = api;
     }
-//    MAX_HP(SkillType.PVP, 2, (Skill skill) -> "+" + skill.amount + " Max HP"),
+
 //    // % Chance to activate
 //    BLEED(SkillType.PVP, 2, "Bleed Passive"),
 //    IGNORE_SHIELD(SkillType.PVP, 50, (Skill skill) -> skill.amount + "% Chance to Ignore Shields"),
-//    ARMOR_DURABILITY_INCREASE(SkillType.PVP, 2, (Skill skill) -> skill.amount + "x Armor Durability"),
-//    DUAL_WIELD(SkillType.PVP, 0, (Skill skill) -> "Dual Wield Ability"),
-
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onArmorDamage(PlayerItemDamageEvent e) {
         if (!EnchantmentTarget.ARMOR.includes(e.getItem())) {

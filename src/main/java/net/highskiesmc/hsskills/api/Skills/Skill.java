@@ -17,8 +17,8 @@ public enum Skill {
     //</editor-fold>
     //<editor-fold desc="PvP">
     MAX_HP(SkillType.PVP, 2, (Skill skill) -> "+" + skill.amount + " Max HP"),
-    // % Chance to activate
-    BLEED(SkillType.PVP, 2, "Bleed Passive"),
+    // TODO: Add configuration for this for duration, how often during that duration it proccs, and how much hp it takes
+    BLEED(SkillType.PVP, 0, "Bleed Passive"),
     IGNORE_SHIELD(SkillType.PVP, 50, (Skill skill) -> skill.amount + "% Chance to Ignore Shields"),
     ARMOR_DURABILITY_INCREASE(SkillType.PVP, 2, (Skill skill) -> skill.amount + "x Armor Durability"),
     DUAL_WIELD(SkillType.PVP, 0, (Skill skill) -> "Dual Wield Ability"),
