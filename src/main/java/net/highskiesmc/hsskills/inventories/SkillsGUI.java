@@ -8,6 +8,8 @@ import net.highskiesmc.hsskills.api.Rank;
 import net.highskiesmc.hsskills.api.Skills.Skill;
 import net.highskiesmc.hsskills.api.Skills.SkillType;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -47,6 +49,11 @@ public class SkillsGUI implements GUI {
                 break;
             case 6:
                 if (api.upgradeSkill(player, SkillType.PVP)) {
+                    if (api.getSkillLevel(player, SkillType.PVP) == 1) {
+                        AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+                        maxHealth.setBaseValue(maxHealth.getBaseValue() + 2);
+                    }
+
                     player.closeInventory();
                     player.openInventory(new SkillsGUI(player).getInventory());
                 }

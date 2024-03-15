@@ -9,6 +9,7 @@ import net.highskiesmc.hsskills.commands.SkillsCommand;
 import net.highskiesmc.hsskills.commands.TempCommand;
 import net.highskiesmc.hsskills.events.handlers.IslandSkillHandlers;
 import net.highskiesmc.hsskills.events.handlers.PlayerJoinLeaveHandlers;
+import net.highskiesmc.hsskills.events.handlers.PvPSkillHandlers;
 import net.highskiesmc.hsskills.events.handlers.SkillTokenHandlers;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -41,6 +42,7 @@ public final class HSSkills extends HSPlugin {
         register(new PlayerJoinLeaveHandlers(this));
         register(new SkillTokenHandlers(this, api));
         register(new IslandSkillHandlers(this, api, rsAPI));
+        register(new PvPSkillHandlers(this, api));
     }
 
     @Override
