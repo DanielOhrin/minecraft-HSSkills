@@ -174,5 +174,10 @@
             <artifactId>HSMisc</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>net.highskiesmc</groupId>
+            <artifactId>hsadventure</artifactId>
+            <version>1.3.5</version>
+        </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,7 @@
 package net.highskiesmc.hsskills;
 
 import dev.rosewood.rosestacker.api.RoseStackerAPI;
+import net.highskiesmc.hsadventure.HSAdventure;
 import net.highskiesmc.hscore.configuration.sources.FileConfigSource;
 import net.highskiesmc.hscore.exceptions.Exception;
 import net.highskiesmc.hscore.highskies.HSPlugin;
@@ -40,7 +41,7 @@ public final class HSSkills extends HSPlugin {
         register(new SkillTokenHandlers(this, api));
         register(new IslandSkillHandlers(this, api, rsAPI));
         register(new PvPSkillHandlers(this, api));
-        register(new PvESkillHandlers(this, api));
+        register(new PvESkillHandlers(this, api, HSAdventure.getAPI()));
     }
 
     @Override
