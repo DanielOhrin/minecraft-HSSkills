@@ -3,6 +3,7 @@ package net.highskiesmc.hsskills.events.handlers;
 import com.bgsoftware.superiorskyblock.api.SuperiorSkyblockAPI;
 import net.highskiesmc.hscore.highskies.HSListener;
 import net.highskiesmc.hscore.highskies.HSPlugin;
+import net.highskiesmc.hsmisc.events.events.entitydamage.PlayerDamagePlayerEvent;
 import net.highskiesmc.hsskills.api.HSSkillsApi;
 import net.highskiesmc.hsskills.api.Skills.Skill;
 import net.highskiesmc.hsskills.api.Skills.SkillType;
@@ -14,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
@@ -37,7 +39,18 @@ public class PvPSkillHandlers extends HSListener {
         this.api = api;
     }
 
-//    IGNORE_SHIELD(SkillType.PVP, 50, (Skill skill) -> skill.amount + "% Chance to Ignore Shields"),
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerDamageEntityBlocking(EntityDamageByEntityEvent e) {
+        if (e.getDamager() instanceof Player player) {
+            if (api.hasSkill(player, Skill.IGNORE_SHIELD)) {
+                double chance = Skill.IGNORE_SHIELD.getAmount() / 100D;
+
+                if (new Random().nextDouble() <= chance) {
+                    e.setDamage(EntityDamageEvent.DamageModifier.BLOCKING, 1);
+                }
+            }
+        }
+    }
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onArmorDamage(PlayerItemDamageEvent e) {
         if (!EnchantmentTarget.ARMOR.includes(e.getItem())) {

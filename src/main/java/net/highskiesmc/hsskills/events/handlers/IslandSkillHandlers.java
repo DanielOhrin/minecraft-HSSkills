@@ -2,7 +2,6 @@ package net.highskiesmc.hsskills.events.handlers;
 
 import com.bgsoftware.superiorskyblock.api.SuperiorSkyblockAPI;
 import com.bgsoftware.superiorskyblock.api.island.Island;
-import dev.rosewood.rosestacker.api.RoseStackerAPI;
 import net.highskiesmc.hscore.highskies.HSListener;
 import net.highskiesmc.hscore.highskies.HSPlugin;
 import net.highskiesmc.hsprogression.events.events.IslandContributionEvent;
@@ -11,7 +10,6 @@ import net.highskiesmc.hsskills.api.Skills.Skill;
 import net.highskiesmc.nodes.events.events.IslandNodeMineEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,12 +23,10 @@ import java.util.Random;
 
 public class IslandSkillHandlers extends HSListener {
     private final HSSkillsApi api;
-    private final RoseStackerAPI rsApi;
 
-    public IslandSkillHandlers(HSPlugin main, HSSkillsApi api, RoseStackerAPI rsApi) {
+    public IslandSkillHandlers(HSPlugin main, HSSkillsApi api) {
         super(main);
         this.api = api;
-        this.rsApi = rsApi;
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOW)

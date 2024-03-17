@@ -1,6 +1,5 @@
 package net.highskiesmc.hsskills;
 
-import dev.rosewood.rosestacker.api.RoseStackerAPI;
 import net.highskiesmc.hsadventure.HSAdventure;
 import net.highskiesmc.hscore.configuration.sources.FileConfigSource;
 import net.highskiesmc.hscore.exceptions.Exception;
@@ -10,19 +9,15 @@ import net.highskiesmc.hsskills.commands.SkillsCommand;
 import net.highskiesmc.hsskills.commands.TempCommand;
 import net.highskiesmc.hsskills.events.handlers.*;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.sql.SQLException;
 
 public final class HSSkills extends HSPlugin {
     private static HSSkillsApi api;
-    private static RoseStackerAPI rsAPI = null;
 
     @Override
     public void enable() {
-        rsAPI = RoseStackerAPI.getInstance();
-
         config.addSource(new FileConfigSource("config.yml", this));
         config.addSource(new FileConfigSource("messages.yml", this));
         config.reload();
@@ -40,7 +35,7 @@ public final class HSSkills extends HSPlugin {
 
         register(new PlayerJoinLeaveHandlers(this));
         register(new SkillTokenHandlers(this, api));
-        register(new IslandSkillHandlers(this, api, rsAPI));
+        register(new IslandSkillHandlers(this, api));
         register(new PvPSkillHandlers(this, api));
         register(new PvESkillHandlers(this, api, HSAdventure.getAPI()));
         register(new BleedHandler(this, api));
@@ -70,9 +65,5 @@ public final class HSSkills extends HSPlugin {
 
     public static HSSkillsApi getApi() {
         return api;
-    }
-
-    public static RoseStackerAPI getRsAPI() {
-        return rsAPI;
     }
 }

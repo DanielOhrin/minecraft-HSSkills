@@ -189,7 +189,6 @@ public class BleedHandler extends HSListener {
                 startCooldown(player);
                 bleed(e.getEntity());
             }
-            // Bleed config: cooldown, duration, how often it attacks them, how much dmg to do, particle effect, noise
         }
     }
 

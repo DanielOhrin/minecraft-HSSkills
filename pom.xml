@@ -153,12 +153,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>dev.rosewood</groupId>
-            <artifactId>rosestacker</artifactId>
-            <version>1.5.7</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>net.highskiesmc</groupId>
             <artifactId>HSNodes</artifactId>
             <version>1.2.0</version>
