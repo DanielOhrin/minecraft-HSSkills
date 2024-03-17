@@ -1,33 +1,23 @@
 package net.highskiesmc.hsskills.events.handlers;
 
-import com.bgsoftware.superiorskyblock.api.SuperiorSkyblockAPI;
 import net.highskiesmc.hscore.highskies.HSListener;
 import net.highskiesmc.hscore.highskies.HSPlugin;
-import net.highskiesmc.hsmisc.events.events.entitydamage.PlayerDamagePlayerEvent;
 import net.highskiesmc.hsskills.api.HSSkillsApi;
 import net.highskiesmc.hsskills.api.Skills.Skill;
-import net.highskiesmc.hsskills.api.Skills.SkillType;
-import org.bukkit.World;
 import org.bukkit.enchantments.EnchantmentTarget;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 

@@ -13,7 +13,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class HSSkillsApi {
     public final NamespacedKey SKILL_TOKEN_KEY;

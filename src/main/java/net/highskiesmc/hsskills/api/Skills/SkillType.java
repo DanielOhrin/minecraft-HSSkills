@@ -1,8 +1,6 @@
 package net.highskiesmc.hsskills.api.Skills;
 
 import net.highskiesmc.hscore.utils.TextUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -61,8 +59,7 @@ public enum SkillType {
         }
 
         lore.add("");
-        lore.add(TextUtils.translateColor(TEXT_COLOR + "Click to access a detailed"));
-        lore.add(TextUtils.translateColor(TEXT_COLOR + "view of each skill perk."));
+        lore.add(TextUtils.translateColor(TEXT_COLOR + "Click to upgrade a perk"));
 
         meta.setLore(lore);
         item.setItemMeta(meta);

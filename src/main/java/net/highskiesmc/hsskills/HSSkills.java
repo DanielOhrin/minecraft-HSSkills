@@ -5,8 +5,9 @@ import net.highskiesmc.hscore.configuration.sources.FileConfigSource;
 import net.highskiesmc.hscore.exceptions.Exception;
 import net.highskiesmc.hscore.highskies.HSPlugin;
 import net.highskiesmc.hsskills.api.HSSkillsApi;
+import net.highskiesmc.hsskills.commands.HSSkillsCommand;
 import net.highskiesmc.hsskills.commands.SkillsCommand;
-import net.highskiesmc.hsskills.commands.TempCommand;
+import net.highskiesmc.hsskills.commands.tabcompleters.HSSkillsTabCompleter;
 import net.highskiesmc.hsskills.events.handlers.*;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -31,7 +32,8 @@ public final class HSSkills extends HSPlugin {
         }
 
         getCommand("skills").setExecutor(new SkillsCommand(this));
-        getCommand("getskilltoken").setExecutor(new TempCommand());
+        getCommand("hsskills").setExecutor(new HSSkillsCommand(this, api));
+        getCommand("hsskills").setTabCompleter(new HSSkillsTabCompleter());
 
         register(new PlayerJoinLeaveHandlers(this));
         register(new SkillTokenHandlers(this, api));

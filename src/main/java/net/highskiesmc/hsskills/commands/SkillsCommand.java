@@ -31,7 +31,7 @@ public class SkillsCommand extends HSCommand {
 
         if (commandSender instanceof Player player) {
             if (hasPermission(player, "hsskills.cmd.skills", ChatColor.RED + "Insufficient Permission")) {
-                Inventory inv = new SkillsGUI(player).getInventory();
+                Inventory inv = new SkillsGUI(player, config).getInventory();
 
                 player.openInventory(inv);
             }

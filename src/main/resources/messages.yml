@@ -10,7 +10,9 @@ skill-token:
   cannot-claim: "&cYou cannot claim more skill tokens!"
 
 no-permission: "&cInsufficient permission."
-usage: "&cUnknown command"
+usage: "&cUnknown command."
+no-player: "&cPlayer not found."
+full-inventory: "&cInventory full. Some items were dropped on the ground."
 
 cmd:
   reload: "&fSuccessfully reloaded HSSkills"

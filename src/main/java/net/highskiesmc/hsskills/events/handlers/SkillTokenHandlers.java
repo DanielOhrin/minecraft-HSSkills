@@ -5,7 +5,6 @@ import net.highskiesmc.hscore.highskies.HSPlugin;
 import net.highskiesmc.hscore.utils.TextUtils;
 import net.highskiesmc.hsskills.api.HSSkillsApi;
 import net.highskiesmc.hsskills.api.SkillToken;
-import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

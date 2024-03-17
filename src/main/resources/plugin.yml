@@ -8,4 +8,5 @@ depend: [ SuperiorSkyblock2, RoseStacker, HSNodes, HSProgression, HSMisc, HSAdve
 commands:
   skills:
     description: "Opens the menu for player skills"
-  getskilltoken:
+  hsskills:
+    description: "Admin commands for HSSkills"

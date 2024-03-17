@@ -1,11 +1,7 @@
 package net.highskiesmc.hsskills.events.handlers;
 
-import net.highskiesmc.hsadventure.HSAdventure;
 import net.highskiesmc.hsadventure.api.HSAdventureAPI;
 import net.highskiesmc.hsadventure.api.objects.Crate;
-import net.highskiesmc.hsadventure.api.objects.Guard;
-import net.highskiesmc.hsadventure.api.objects.Loot;
-import net.highskiesmc.hsadventure.commands.commands.CommandHSAdventure;
 import net.highskiesmc.hsadventure.core.utils.NumberUtils;
 import net.highskiesmc.hsadventure.core.utils.PlayerUtils;
 import net.highskiesmc.hsalignments.events.events.AdventureWarpTimerEvent;
@@ -15,21 +11,22 @@ import net.highskiesmc.hscore.utils.TextUtils;
 import net.highskiesmc.hsmisc.events.events.entitydamage.PlayerDamageEntityEvent;
 import net.highskiesmc.hsskills.api.HSSkillsApi;
 import net.highskiesmc.hsskills.api.Skills.Skill;
-import net.highskiesmc.hsskills.api.Skills.SkillType;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.damage.DamageSource;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.entity.*;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 public class PvESkillHandlers extends HSListener {
     private final HSSkillsApi api;
