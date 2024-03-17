@@ -72,9 +72,6 @@ public class PvPSkillHandlers extends HSListener {
             }
         }
     }
-
-        //TODO: Shield
-    // TODO: Bleed
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onDualWieldWeaponHotswap(PlayerSwapHandItemsEvent e) {
         if (!isAllowedInOffhand(e.getPlayer(), e.getOffHandItem())) {

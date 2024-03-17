@@ -2,9 +2,12 @@ package net.highskiesmc.hsskills.events.handlers;
 
 import net.highskiesmc.hscore.highskies.HSListener;
 import net.highskiesmc.hscore.highskies.HSPlugin;
+import net.highskiesmc.hscore.utils.TextUtils;
 import net.highskiesmc.hsskills.api.HSSkillsApi;
 import net.highskiesmc.hsskills.api.SkillToken;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -15,6 +18,7 @@ import java.util.Arrays;
 
 public class SkillTokenHandlers extends HSListener {
     private final HSSkillsApi api;
+
     public SkillTokenHandlers(HSPlugin main, HSSkillsApi api) {
         super(main);
         this.api = api;
@@ -33,18 +37,26 @@ public class SkillTokenHandlers extends HSListener {
             return;
         }
 
-        // TODO: Check if player is allowed to claim more skill tokens based on their rank and current tokens claimed
         int amount = item.getAmount();
 
-        if (api.claimSkillToken(e.getPlayer())) {
+        Player player = e.getPlayer();
+        if (api.claimSkillToken(player)) {
             if (amount == 1) {
-                e.getPlayer().getInventory().setItemInMainHand(null);
+                player.getInventory().setItemInMainHand(null);
             } else {
                 item.setAmount(amount - 1);
             }
-            // TODO: Player feedback
+
+            Sound sound = Sound.valueOf(config.get("skill-token.claim-sound", String.class,
+                    "ENTITY_EXPERIENCE_ORB_PICKUP"));
+            String msg = config.get("skill-token.claim", String.class, "&f&l+1 &6&lSkill Token");
+
+            player.playSound(player.getLocation(), sound, 1, 1);
+            player.sendMessage(TextUtils.translateColor(msg));
         } else {
-            e.getPlayer().sendMessage(ChatColor.RED + "You cannot claim more of these!");
+            player.sendMessage(TextUtils.translateColor(
+                    config.get("skill-token.cannot-claim", String.class, "&cYou cannot claim more skill tokens!")
+            ));
         }
 
     }

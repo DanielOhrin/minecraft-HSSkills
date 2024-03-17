@@ -78,19 +78,18 @@ public class SkillsGUI implements GUI {
     public void addContent(Inventory inventory) {
         int i = 2;
 
-        // TODO: Show tokens in gui title (1)
         for (SkillType skillType : SkillType.values()) {
             inventory.setItem(i, skillType.getDisplayItem(api.getSkillLevel(player, skillType)));
             i += 2;
         }
     }
-
+    // TODO: Feedback when unlocking a new skill!
     @Override
     @NonNull
     public Inventory getInventory() {
         Inventory inv = Bukkit.createInventory(this, 9,
                 TextUtils.translateColor("&6&lPlayer Skills (" + tokens + ")"));
-        // TODO: Open new GUI when successfully spending a token
+
         addContent(inv);
         
         return inv;
