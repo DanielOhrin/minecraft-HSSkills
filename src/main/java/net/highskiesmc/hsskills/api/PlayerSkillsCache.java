@@ -18,7 +18,11 @@ public class PlayerSkillsCache extends MapCache<Map<UUID, PlayerSkills>> {
             getUpdates(false).put(uuid, skills);
         }
     }
-        // TODO: Cleanup when player leaves server
+
+    public void remove(UUID uuid) {
+        cache.remove(uuid);
+    }
+
     @Override
     public Map<UUID, PlayerSkills> getUpdatesClone() {
         return new HashMap<>(getUpdates(false));

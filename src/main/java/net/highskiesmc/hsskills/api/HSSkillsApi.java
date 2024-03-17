@@ -59,6 +59,14 @@ public class HSSkillsApi {
         cache.dispose();
     }
 
+    public void unloadPlayerData(@NonNull UUID playerUuid) {
+        cache.remove(playerUuid);
+    }
+
+    public void unloadPlayerData(@NonNull Player player) {
+        unloadPlayerData(player.getUniqueId());
+    }
+
     public void loadPlayerData(@NonNull UUID playerUuid) {
         Optional<PlayerSkills> skills = db.getPlayerSkills(playerUuid);
         boolean isUpdate = false;

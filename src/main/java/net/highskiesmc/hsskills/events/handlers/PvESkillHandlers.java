@@ -8,6 +8,7 @@ import net.highskiesmc.hsadventure.api.objects.Loot;
 import net.highskiesmc.hsadventure.commands.commands.CommandHSAdventure;
 import net.highskiesmc.hsadventure.core.utils.NumberUtils;
 import net.highskiesmc.hsadventure.core.utils.PlayerUtils;
+import net.highskiesmc.hsalignments.events.events.AdventureWarpTimerEvent;
 import net.highskiesmc.hscore.highskies.HSListener;
 import net.highskiesmc.hscore.highskies.HSPlugin;
 import net.highskiesmc.hscore.utils.TextUtils;
@@ -40,8 +41,19 @@ public class PvESkillHandlers extends HSListener {
         this.advApi = advApi;
     }
 
-    //    ADVENTURE_LEAVE_TIMER_DECREASE(SkillType.PVE, 50, (Skill skill) -> "-" + skill.amount + "% /adventure leave
-//    timer"),
+    @EventHandler
+    public void onAdventureWarpTimer(AdventureWarpTimerEvent e) {
+        Player player = e.getPlayer();
+
+        if (api.hasSkill(player, Skill.ADVENTURE_LEAVE_TIMER_DECREASE)) {
+            double delay = e.getDelay();
+
+            delay *= (Skill.ADVENTURE_LEAVE_TIMER_DECREASE.getAmount() / 100D);
+
+            e.setDelay(delay);
+        }
+    }
+
     @EventHandler(ignoreCancelled = true)
     public void onPlayerDamageEntity(PlayerDamageEntityEvent e) {
         if (api.hasSkill(e.getAttacker(), Skill.OUTGOING_PVE_DAMAGE_INCREASE)) {
