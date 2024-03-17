@@ -59,7 +59,7 @@ public enum SkillType {
         }
 
         lore.add("");
-        lore.add(TextUtils.translateColor(TEXT_COLOR + "Click to upgrade a perk"));
+        lore.add(TextUtils.translateColor(TEXT_COLOR + "Click to upgrade"));
 
         meta.setLore(lore);
         item.setItemMeta(meta);
