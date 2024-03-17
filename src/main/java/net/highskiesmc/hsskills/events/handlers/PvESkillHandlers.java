@@ -29,7 +29,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class PvESkillHandlers extends HSListener {
     private final HSSkillsApi api;
@@ -43,7 +42,6 @@ public class PvESkillHandlers extends HSListener {
 
     //    ADVENTURE_LEAVE_TIMER_DECREASE(SkillType.PVE, 50, (Skill skill) -> "-" + skill.amount + "% /adventure leave
 //    timer"),
-//    ADVENTURE_MOB_LOOT(SkillType.PVE, 5, "Adventure Mob Loot");
     @EventHandler(ignoreCancelled = true)
     public void onPlayerDamageEntity(PlayerDamageEntityEvent e) {
         if (api.hasSkill(e.getAttacker(), Skill.OUTGOING_PVE_DAMAGE_INCREASE)) {
@@ -140,8 +138,11 @@ public class PvESkillHandlers extends HSListener {
                 PlayerUtils.giveItem(player, item, TextUtils.translateColor("&4&l[!] &cYour " +
                         "inventory is full, your item was dropped on the floor!"));
 
-                // TODO: Feedback to player... also check previous things for feedback/config opportunities...
-                player.sendMessage(ChatColor.WHITE + ChatColor.BOLD.toString() + "Adventure Mob Loot " + ChatColor.GRAY + "(" + item.getItemMeta().getDisplayName() + ChatColor.WHITE + " x" + item.getAmount() + ChatColor.GRAY + ")");
+                player.sendMessage(TextUtils.translateColor(
+                    config.get("mob-loot", String.class, "&e+ {amount}x &f{item} &7(Adventure Mob Loot)")
+                            .replace("{amount}", String.valueOf(item.getAmount()))
+                            .replace("{item}", item.getItemMeta().getDisplayName())
+                ));
             }
         }
     }

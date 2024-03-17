@@ -6,20 +6,26 @@ import net.highskiesmc.hscore.highskies.HSPlugin;
 import net.highskiesmc.hsskills.api.HSSkillsApi;
 import net.highskiesmc.hsskills.api.Skills.Skill;
 import net.highskiesmc.hsskills.api.Skills.SkillType;
+import org.bukkit.World;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -31,8 +37,6 @@ public class PvPSkillHandlers extends HSListener {
         this.api = api;
     }
 
-//    // % Chance to activate
-//    BLEED(SkillType.PVP, 2, "Bleed Passive"),
 //    IGNORE_SHIELD(SkillType.PVP, 50, (Skill skill) -> skill.amount + "% Chance to Ignore Shields"),
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onArmorDamage(PlayerItemDamageEvent e) {
@@ -56,7 +60,7 @@ public class PvPSkillHandlers extends HSListener {
         }
     }
 
-    //TODO: Shield
+        //TODO: Shield
     // TODO: Bleed
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onDualWieldWeaponHotswap(PlayerSwapHandItemsEvent e) {

@@ -4,3 +4,17 @@ my-sql:
   database:
   username:
   password:
+
+bleed:
+  allowed-worlds:
+    - example
+    - example1
+  ready-duration: 5
+  cooldown: 300
+  duration: 12 # Total seconds of effect
+  dmg-seconds: 2 # Seconds between each damage
+  dmg: 1
+  particle:
+    value: BLOCK_DUST
+    block: REDSTONE_BLOCK
+  sound: BLOCK_STONE_BREAK

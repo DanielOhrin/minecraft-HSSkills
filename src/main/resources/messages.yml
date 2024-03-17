@@ -1,0 +1,5 @@
+mob-loot: "&e+ {amount}x &f{item} &7(Adventure Mob Loot)"
+
+bleed:
+  unready: "&c(!) You must wait &n{time}&c before activating Bleed again!"
+  ready: "&e&L(!) Bleed - READY"

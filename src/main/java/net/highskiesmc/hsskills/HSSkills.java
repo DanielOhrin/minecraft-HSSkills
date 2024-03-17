@@ -24,6 +24,7 @@ public final class HSSkills extends HSPlugin {
         rsAPI = RoseStackerAPI.getInstance();
 
         config.addSource(new FileConfigSource("config.yml", this));
+        config.addSource(new FileConfigSource("messages.yml", this));
         config.reload();
 
         try {
@@ -42,6 +43,7 @@ public final class HSSkills extends HSPlugin {
         register(new IslandSkillHandlers(this, api, rsAPI));
         register(new PvPSkillHandlers(this, api));
         register(new PvESkillHandlers(this, api, HSAdventure.getAPI()));
+        register(new BleedHandler(this, api));
     }
 
     @Override
@@ -59,6 +61,11 @@ public final class HSSkills extends HSPlugin {
     @Override
     protected boolean isUsingInventories() {
         return true;
+    }
+
+    @Override
+    protected boolean isAddingCustomRecipe() {
+        return false;
     }
 
     public static HSSkillsApi getApi() {
