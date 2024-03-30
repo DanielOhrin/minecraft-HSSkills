@@ -6,7 +6,7 @@
 
     <groupId>net.highskiesmc</groupId>
     <artifactId>hsskills</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>HSSkills</name>

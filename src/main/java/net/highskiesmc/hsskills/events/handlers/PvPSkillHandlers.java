@@ -31,7 +31,7 @@ public class PvPSkillHandlers extends HSListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerDamageEntityBlocking(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player player) {
+        if (e.getDamager() instanceof Player player && e.getEntity() instanceof Player) {
             if (api.hasSkill(player, Skill.IGNORE_SHIELD)) {
                 double chance = Skill.IGNORE_SHIELD.getAmount() / 100D;
 

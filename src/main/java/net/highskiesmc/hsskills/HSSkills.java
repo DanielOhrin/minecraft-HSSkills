@@ -35,7 +35,7 @@ public final class HSSkills extends HSPlugin {
         getCommand("hsskills").setExecutor(new HSSkillsCommand(this, api));
         getCommand("hsskills").setTabCompleter(new HSSkillsTabCompleter());
 
-        register(new PlayerJoinLeaveHandlers(this));
+        register(new PlayerJoinLeaveHandlers(this, api));
         register(new SkillTokenHandlers(this, api));
         register(new IslandSkillHandlers(this, api));
         register(new PvPSkillHandlers(this, api));
